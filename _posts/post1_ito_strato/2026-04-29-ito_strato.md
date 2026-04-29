@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Itô and Stratonovich : Two Ways to Read Noise
+title: Itô and Stratonovich - Two Ways to Read Noise
 date: April 2026
 ---
 # Itô and Stratonovich : Two Ways to Read Noise
@@ -23,17 +23,17 @@ This difficulty leads to two distinct, yet mathematically consistent, constructi
 
 The purpose of this note is to present both constructions in a rigorous and pedagogical manner, to clarify their differences and their equivalence, and to illustrate these concepts through numerical simulations. Particular attention is given to their respective domains of application: Itô calculus is predominant in mathematical finance due to its non-anticipative nature, whereas Stratonovich calculus appears naturally in physics and has recently gained renewed interest in machine learning.
 
-Throughout this document, we work on a filtered probability space \((\Omega, \mathcal{F}, (\mathcal{F}*t)*{t \geq 0}, \mathbb{P})\) satisfying the usual conditions.
+Throughout this document, we work on a filtered probability space $(\Omega, \mathcal{F}, (\mathcal{F}*t)*{t \geq 0}, \mathbb{P})$ satisfying the usual conditions.
 
 
 ## Brownian Motion and the Problem of Integration
 
-A standard Brownian motion \((W_t)_{t \geq 0}\) is a stochastic process such that \(W_0 = 0\) almost surely, it has independent increments, and for all \(0 \leq s < t\), \(W_t - W_s \sim \mathcal{N}(0, t-s)\). Its trajectories are almost surely continuous.
+A standard Brownian motion $(W_t)_{t \geq 0}$ is a stochastic process such that $W_0 = 0$ almost surely, it has independent increments, and for all $0 \leq s < t$, $W_t - W_s \sim \mathcal{N}(0, t-s)$. Its trajectories are almost surely continuous.
 
 A fundamental property is its quadratic variation:
-\[
+$$
 [W]*t = \lim*{|\Delta| \to 0} \sum_i (W_{t_{i+1}} - W_{t_i})^2 = t \quad \text{a.s.}
-\]
+$$
 
 This implies that Brownian paths are nowhere differentiable, which makes classical integration inapplicable. In particular, the limit of Riemann sums depends on the choice of evaluation points.
 
@@ -63,22 +63,22 @@ plt.show()
 
 ## The Itô Integral
 
-Let \((X_t)_{t \geq 0}\) be an adapted process such that
-\[
+Let $(X_t)_{t \geq 0}$ be an adapted process such that
+$$
 \mathbb{E}\left[\int_0^T X_t^2 dt\right] < \infty.
-\]
+$$
 
-The Itô integral is defined as the \(L^2(\Omega)\)-limit:
-\[
+The Itô integral is defined as the $L^2(\Omega)$-limit:
+$$
 \int_0^T X_t , dW_t = \lim_{|\Delta| \to 0} \sum_i X_{t_i} (W_{t_{i+1}} - W_{t_i}).
-\]
+$$
 
-This construction enforces non-anticipativity since \(X_{t_i}\) is measurable with respect to \(\mathcal{F}_{t_i}\).
+This construction enforces non-anticipativity since $X_{t_i}$ is measurable with respect to $\mathcal{F}_{t_i}$.
 
 A central property is the Itô isometry:
-\[
+$$
 \mathbb{E}\left[\left(\int_0^T X_t , dW_t\right)^2\right] = \mathbb{E}\left[\int_0^T X_t^2 dt\right].
-\]
+$$
 
 Numerical approximation:
 
@@ -90,9 +90,9 @@ print("Ito approximation:", ito_sum)
 ## The Stratonovich Integral
 
 The Stratonovich integral is defined by symmetric approximations:
-\[
+$$
 \int_0^T X_t \circ dW_t = \lim_{|\Delta| \to 0} \sum_i \frac{X_{t_i} + X_{t_{i+1}}}{2} (W_{t_{i+1}} - W_{t_i}).
-\]
+$$
 Here you can see that the Stratonovich integral use the term $X_{t_{i+1}}$ that wasn't for the Itô.
 This definition restores the classical chain rule, making it closer to standard calculus.
 
@@ -107,9 +107,9 @@ print("Stratonovich approximation:", strat_sum)
 ## Itô vs Stratonovich: Difference and Equivalence
 
 The two integrals differ by a correction term. For a smooth function $f$,
-\[
+$$
 \int_0^T f(W_t) \circ dW_t = \int_0^T f(W_t) dW_t + \frac{1}{2} \int_0^T f'(W_t) dt.
-\]
+$$
 
 This discrepancy arises from the quadratic variation of Brownian motion.
 
@@ -124,23 +124,23 @@ In practice, this difference is reflected directly in numerical simulations. For
 
 ## Change of Variables: Itô Lemma
 
-Let \(f \in C^2(\mathbb{R})\). Then:
-\[
+Let $f \in C^2(\mathbb{R})$. Then:
+$$
 df(W_t) = f'(W_t) dW_t + \frac{1}{2} f''(W_t) dt.
-\]
+$$
 
 In contrast, in the Stratonovich sense:
-\[
+$$
 df(W_t) = f'(W_t) \circ dW_t.
-\]
+$$
 
-Example with \(f(x) = x^2\):
-\[
+Example with $f(x) = x^2$:
+$$
 d(W_t^2) = 2W_t dW_t + dt \quad (\text{Itô}),
-\]
-\[
+$$
+$$
 d(W_t^2) = 2W_t \circ dW_t \quad (\text{Stratonovich}).
-\]
+$$
 
 ## Applications in Finance
 
