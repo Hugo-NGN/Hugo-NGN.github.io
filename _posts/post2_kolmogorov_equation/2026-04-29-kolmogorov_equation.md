@@ -22,14 +22,11 @@ Before introducing the formalism, it is useful to start with a simple intuition.
 
 Now imagine that at an earlier time $t < T$, we observe the system at position $x$. A natural question is:
 
-$$
-"\textit{What is the expected value of this future quantity, given that we are currently at state } x \textit{ at time } t?"
-$$
+$$"\textit{What is the expected value of this future quantity, given that we are currently at state } x \textit{ at time } t?"$$
 
 This leads to the definition of the function
-$$
-u(t,x) = \mathbb{E}[\varphi(X_T) \mid X_t = x].
-$$
+
+$$u(t,x) = \mathbb{E}[\varphi(X_T) \mid X_t = x].$$
 
 This function $u(t,x)$ is the central object of the Kolmogorov Backward Equation. It can be interpreted as a *prediction function*: starting from $(t,x)$, it tells us the average future outcome at time $T$.
 
@@ -62,13 +59,12 @@ Left: probability densities evolve forward in time. Right: value functions evolv
 Let $(\Omega, \mathcal{F}, \mathbb{P})$ be a probability space equipped with a filtration $(\mathcal{F}_t)_{t \geq 0}$ satisfying the usual conditions. Let $(W_t)_{t \geq 0}$ be a $d$-dimensional standard Brownian motion adapted to this filtration.
 
 We consider a stochastic differential equation (SDE) in $\mathbb{R}^n$ of the form
-$$
-dX_t = b(X_t,t)\,dt + \sigma(X_t,t)\,dW_t,
-$$
+
+$$dX_t = b(X_t,t)\,dt + \sigma(X_t,t)\,dW_t,$$
+
 with initial condition $X_0 = x \in \mathbb{R}^n$, where
-$$
-b : \mathbb{R}^n \times [0,T] \to \mathbb{R}^n, \quad \sigma : \mathbb{R}^n \times [0,T] \to \mathbb{R}^{n \times d}
-$$
+
+$$b : \mathbb{R}^n \times [0,T] \to \mathbb{R}^n, \quad \sigma : \mathbb{R}^n \times [0,T] \to \mathbb{R}^{n \times d}$$
 are measurable functions satisfying conditions ensuring existence and uniqueness of a strong solution.
 
 Intuitively, this equation describes a system that evolves according to two mechanisms: a deterministic drift $b$, which pushes the system in a preferred direction, and a random fluctuation term driven by the Brownian motion $W_t$. The randomness is continuously injected into the system over time.
@@ -84,9 +80,8 @@ The dynamics combine a deterministic drift (vector field) and random fluctuation
 The process $(X_t)_{t \geq 0}$ is a time-inhomogeneous Markov process. The Markov property means that the future evolution depends only on the present state, not on the past history. This is precisely why the function $u(t,x)$ is well-defined: knowing $X_t = x$ is enough to characterize the distribution of $X_T$.
 
 Its infinitesimal generator $\mathcal{L}_t$ acts on smooth functions $f \in C^2(\mathbb{R}^n)$ as
-$$
-\mathcal{L}_t f(x) = \sum_{i=1}^n b_i(x,t)\,\partial_{x_i} f(x) + \frac{1}{2} \sum_{i,j=1}^n (a(x,t))_{ij} \,\partial_{x_i x_j}^2 f(x),
-$$
+
+$$\mathcal{L}_t f(x) = \sum_{i=1}^n b_i(x,t)\,\partial_{x_i} f(x) + \frac{1}{2} \sum_{i,j=1}^n (a(x,t))_{ij} \,\partial_{x_i x_j}^2 f(x),$$
 where $a(x,t) = \sigma(x,t)\sigma(x,t)^\top$.
 
 The generator $\mathcal{L}_t$ can be interpreted as describing the *instantaneous evolution* of expectations. In a heuristic sense, it tells us how a function of the state changes over an infinitesimal time interval.
@@ -94,35 +89,31 @@ The generator $\mathcal{L}_t$ can be interpreted as describing the *instantaneou
 ### Definition of the value function
 
 Let $\varphi : \mathbb{R}^n \to \mathbb{R}$ be a measurable function such that the expectation below is well-defined. Fix a terminal time $T > 0$ and define
-$$
-u(t,x) = \mathbb{E}[\varphi(X_T) \mid X_t = x], \quad 0 \leq t \leq T.
-$$
+
+$$u(t,x) = \mathbb{E}[\varphi(X_T) \mid X_t = x], \quad 0 \leq t \leq T.$$
 
 It is useful to pause and interpret this definition again. For each point $(t,x)$, we imagine restarting the process at time $t$ from position $x$, letting it evolve randomly until time $T$, applying $\varphi$ to the final state, and averaging over all possible trajectories. The function $u$ is therefore obtained by averaging infinitely many possible futures.
 
 The function $u$ is deterministic due to the Markov property and can be written equivalently as
-$$
-u(t,x) = \mathbb{E}^{t,x}[\varphi(X_T)],
-$$
+
+$$u(t,x) = \mathbb{E}^{t,x}[\varphi(X_T)],$$
+
 where $\mathbb{E}^{t,x}$ denotes expectation for the process starting from $X_t = x$.
 
 ### Statement of the Kolmogorov Backward Equation
 
 Under suitable regularity assumptions (e.g. $u \in C^{1,2}([0,T] \times \mathbb{R}^n)$), the function $u$ satisfies the partial differential equation
-$$
-\partial_t u(t,x) + \mathcal{L}_t u(t,x) = 0, \quad (t,x) \in [0,T) \times \mathbb{R}^n,
-$$
+
+$$\partial_t u(t,x) + \mathcal{L}_t u(t,x) = 0, \quad (t,x) \in [0,T) \times \mathbb{R}^n,$$
 with terminal condition
-$$
-u(T,x) = \varphi(x).
-$$
+
+$$u(T,x) = \varphi(x).$$
 
 This equation expresses a balance: the change of $u$ in time is exactly compensated by the action of the generator. In other words, although individual trajectories are random, the averaged quantity $u$ evolves in a perfectly deterministic way.
 
 Explicitly, this reads
-$$
-\partial_t u(t,x) + \sum_{i=1}^n b_i(x,t)\,\partial_{x_i} u(t,x) + \frac{1}{2} \sum_{i,j=1}^n a_{ij}(x,t)\,\partial_{x_i x_j}^2 u(t,x) = 0.
-$$
+
+$$\partial_t u(t,x) + \sum_{i=1}^n b_i(x,t)\,\partial_{x_i} u(t,x) + \frac{1}{2} \sum_{i,j=1}^n a_{ij}(x,t)\,\partial_{x_i x_j}^2 u(t,x) = 0.$$
 
 ### Derivation via Itô's formula
 
@@ -137,31 +128,25 @@ Along trajectories, the value function fluctuates randomly but has no systematic
 </i></p>
 
 Applying Itô's formula yields
-$$
-du(s,X_s) = \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds + \nabla_x u(s,X_s)^\top \sigma(X_s,s)\,dW_s.
-$$
+
+$$du(s,X_s) = \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds + \nabla_x u(s,X_s)^\top \sigma(X_s,s)\,dW_s.$$
 
 The first term corresponds to the deterministic drift of $u(s,X_s)$, while the second term captures its random fluctuations.
 
 Integrating between $t$ and $T$, we obtain
-$$
-u(T,X_T) - u(t,X_t) = \int_t^T \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds + \int_t^T \nabla_x u(s,X_s)^\top \sigma(X_s,s)\,dW_s.
-$$
+
+$$u(T,X_T) - u(t,X_t) = \int_t^T \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds + \int_t^T \nabla_x u(s,X_s)^\top \sigma(X_s,s)\,dW_s.$$
 
 Taking conditional expectation with respect to $\mathcal{F}_t$, the stochastic integral vanishes, leading to
-$$
-\mathbb{E}[u(T,X_T) \mid \mathcal{F}_t] - u(t,X_t) = \mathbb{E}\left[\int_t^T \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds \middle| \mathcal{F}_t \right].
-$$
+
+$$\mathbb{E}[u(T,X_T) \mid \mathcal{F}_t] - u(t,X_t) = \mathbb{E}\left[\int_t^T \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds \middle| \mathcal{F}_t \right].$$
 
 Using the terminal condition $u(T,x) = \varphi(x)$ and the definition of $u$, we deduce that the left-hand side is zero. Hence,
-$$
-\mathbb{E}\left[\int_t^T \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds \middle| \mathcal{F}_t \right] = 0.
-$$
+
+$$\mathbb{E}\left[\int_t^T \left(\partial_s u + \mathcal{L}_s u \right)(s,X_s)\,ds \middle| \mathcal{F}_t \right] = 0.$$
 
 For this identity to hold for all initial conditions and trajectories, the integrand must vanish, which leads to
-$$
-\partial_t u + \mathcal{L}_t u = 0.
-$$
+$$\partial_t u + \mathcal{L}_t u = 0.$$
 
 This argument highlights an important idea: the KBE is precisely the condition ensuring that $u(s,X_s)$ has no systematic drift, i.e., it is a martingale.
 
