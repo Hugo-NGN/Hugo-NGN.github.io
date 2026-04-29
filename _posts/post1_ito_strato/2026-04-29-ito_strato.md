@@ -31,9 +31,7 @@ Throughout this document, we work on a filtered probability space $(\Omega, \mat
 A standard Brownian motion $(W_t)_{t \geq 0}$ is a stochastic process such that $W_0 = 0$ almost surely, it has independent increments, and for all $0 \leq s < t$, $W_t - W_s \sim \mathcal{N}(0, t-s)$. Its trajectories are almost surely continuous.
 
 A fundamental property is its quadratic variation:
-$$
-[W]*t = \lim*{|\Delta| \to 0} \sum_i (W_{t_{i+1}} - W_{t_i})^2 = t \quad \text{a.s.}
-$$
+$$[W]*t = \lim*{|\Delta| \to 0} \sum_i (W_{t_{i+1}} - W_{t_i})^2 = t \quad \text{a.s.}$$
 
 This implies that Brownian paths are nowhere differentiable, which makes classical integration inapplicable. In particular, the limit of Riemann sums depends on the choice of evaluation points.
 
@@ -64,21 +62,15 @@ plt.show()
 ## The Itô Integral
 
 Let $(X_t)_{t \geq 0}$ be an adapted process such that
-$$
-\mathbb{E}\left[\int_0^T X_t^2 dt\right] < \infty.
-$$
+$$\mathbb{E}\left[\int_0^T X_t^2 dt\right] < \infty.$$
 
 The Itô integral is defined as the $L^2(\Omega)$-limit:
-$$
-\int_0^T X_t , dW_t = \lim_{|\Delta| \to 0} \sum_i X_{t_i} (W_{t_{i+1}} - W_{t_i}).
-$$
+$$\int_0^T X_t , dW_t = \lim_{|\Delta| \to 0} \sum_i X_{t_i} (W_{t_{i+1}} - W_{t_i}).$$
 
 This construction enforces non-anticipativity since $X_{t_i}$ is measurable with respect to $\mathcal{F}_{t_i}$.
 
 A central property is the Itô isometry:
-$$
-\mathbb{E}\left[\left(\int_0^T X_t , dW_t\right)^2\right] = \mathbb{E}\left[\int_0^T X_t^2 dt\right].
-$$
+$$\mathbb{E}\left[\left(\int_0^T X_t , dW_t\right)^2\right] = \mathbb{E}\left[\int_0^T X_t^2 dt\right].$$
 
 Numerical approximation:
 
@@ -90,9 +82,8 @@ print("Ito approximation:", ito_sum)
 ## The Stratonovich Integral
 
 The Stratonovich integral is defined by symmetric approximations:
-$$
-\int_0^T X_t \circ dW_t = \lim_{|\Delta| \to 0} \sum_i \frac{X_{t_i} + X_{t_{i+1}}}{2} (W_{t_{i+1}} - W_{t_i}).
-$$
+$$\int_0^T X_t \circ dW_t = \lim_{|\Delta| \to 0} \sum_i \frac{X_{t_i} + X_{t_{i+1}}}{2} (W_{t_{i+1}} - W_{t_i}).$$
+
 Here you can see that the Stratonovich integral use the term $X_{t_{i+1}}$ that wasn't for the Itô.
 This definition restores the classical chain rule, making it closer to standard calculus.
 
@@ -107,9 +98,7 @@ print("Stratonovich approximation:", strat_sum)
 ## Itô vs Stratonovich: Difference and Equivalence
 
 The two integrals differ by a correction term. For a smooth function $f$,
-$$
-\int_0^T f(W_t) \circ dW_t = \int_0^T f(W_t) dW_t + \frac{1}{2} \int_0^T f'(W_t) dt.
-$$
+$$\int_0^T f(W_t) \circ dW_t = \int_0^T f(W_t) dW_t + \frac{1}{2} \int_0^T f'(W_t) dt.$$
 
 This discrepancy arises from the quadratic variation of Brownian motion.
 
@@ -125,22 +114,16 @@ In practice, this difference is reflected directly in numerical simulations. For
 ## Change of Variables: Itô Lemma
 
 Let $f \in C^2(\mathbb{R})$. Then:
-$$
-df(W_t) = f'(W_t) dW_t + \frac{1}{2} f''(W_t) dt.
-$$
+$$df(W_t) = f'(W_t) dW_t + \frac{1}{2} f''(W_t) dt.$$
 
 In contrast, in the Stratonovich sense:
-$$
-df(W_t) = f'(W_t) \circ dW_t.
-$$
+$$df(W_t) = f'(W_t) \circ dW_t.$$
 
 Example with $f(x) = x^2$:
+$$d(W_t^2) = 2W_t dW_t + dt \quad (\text{Itô}),
 $$
-d(W_t^2) = 2W_t dW_t + dt \quad (\text{Itô}),
-$$
-$$
-d(W_t^2) = 2W_t \circ dW_t \quad (\text{Stratonovich}).
-$$
+
+$$d(W_t^2) = 2W_t \circ dW_t \quad (\text{Stratonovich}).$$
 
 ## Applications in Finance
 
@@ -148,9 +131,7 @@ In mathematical finance, stochastic integrals are interpreted in the Itô sense.
 
 The Black–Scholes model is a canonical example where Itô calculus is essential. In its general form, the price $S_t$ of a risky asset is modeled by the stochastic differential equation
 
-$$
-dS_t = \mu S_t \, dt + \sigma S_t \, dW_t,
-$$
+$$dS_t = \mu S_t \, dt + \sigma S_t \, dW_t,$$
 
 where $\mu$ is the drift (expected return), $\sigma$ the volatility, and $W_t$ a standard Brownian motion. Under a risk-neutral measure, the drift is replaced by the risk-free rate, and the Itô framework enables the derivation of the associated pricing partial differential equation via Itô’s lemma.
 
@@ -160,7 +141,9 @@ where $\mu$ is the drift (expected return), $\sigma$ the volatility, and $W_t$ a
 Stratonovich integrals arise naturally in the limit of systems with smooth noise approximations. They preserve geometric structures and satisfy the classical chain rule, making them particularly suitable for modeling physical systems.
 
 In machine learning, they appear in continuous-time models such as Neural Stochastic Differential Equations, where invariance and differentiability properties are desirable. A typical Stratonovich formulation of such a model is
+
 $$dX_t = f_\theta(X_t, t)\, dt + g_\theta(X_t, t) \circ dW_t,$$
+
 where $f_\theta$ and $g_\theta$ are neural networks parameterized by $\theta$. 
 
 The Stratonovich interpretation is often preferred in this context because it is compatible with standard calculus rules, facilitating backpropagation through continuous dynamics and preserving invariances under smooth transformations of the state space.
@@ -173,22 +156,18 @@ Here is a refined version of your section that makes the Hessian / Itô’s lemm
 Although Itô and Stratonovich integrals are defined differently, they describe equivalent stochastic processes up to a correction in the drift term. In practice, one can convert from one formulation to the other depending on which is more convenient: Itô calculus is typically preferred for probabilistic analysis, while Stratonovich calculus is often more natural for modeling and geometric reasoning.
 
 The origin of this correction can be understood through Itô’s lemma. For a smooth function $f : \mathbb{R}^d \to \mathbb{R}$, it states that
-$$
-df(X_t)= \nabla f(X_t)^\top dX_t + \frac{1}{2} \operatorname{Tr}\!\big(\sigma(X_t)\sigma(X_t)^\top \nabla^2 f(X_t)\big)\,dt,$$
+$$df(X_t)= \nabla f(X_t)^\top dX_t + \frac{1}{2} \operatorname{Tr}\!\big(\sigma(X_t)\sigma(X_t)^\top \nabla^2 f(X_t)\big)\,dt,$$
+
 where $\nabla^2 f$ denotes the Hessian. This second-order term has no analogue in classical calculus and is precisely what distinguishes the Itô and Stratonovich interpretations.
 
 #### One-dimensional case
 
 Consider:
 
-$$
-dX_t = a(X_t) dt + b(X_t) dW_t.
-$$
+$$dX_t = a(X_t) dt + b(X_t) dW_t.$$
 
 The equivalent Stratonovich form is:
-$$
-dX_t = \left(a(X_t) - \frac{1}{2} b(X_t)b’(X_t)\right) dt + b(X_t) \circ dW_t.
-$$
+$$dX_t = \left(a(X_t) - \frac{1}{2} b(X_t)b’(X_t)\right) dt + b(X_t) \circ dW_t.$$
 
 This correction term arises from the second-order contribution in Itô’s lemma and can be seen as the one-dimensional manifestation of a Hessian effect.
 
@@ -197,9 +176,8 @@ Here is a clean version with bold vector/matrix notation and slightly tightened 
 #### Multidimensional formulation
 
 More generally, consider a $d$-dimensional process $\mathbf{X}_t \in \mathbb{R}^d$ solving
-$$
-d\mathbf{X}_t = \mathbf{A}(t, \mathbf{X}_t)\,dt + \boldsymbol{\Sigma}(t, \mathbf{X}_t)\,d\mathbf{W}_t,
-$$
+
+$$d\mathbf{X}_t = \mathbf{A}(t, \mathbf{X}_t)\,dt + \boldsymbol{\Sigma}(t, \mathbf{X}_t)\,d\mathbf{W}_t,$$
 
 where:
 
@@ -208,17 +186,15 @@ where:
 * $\mathbf{W}_t \in \mathbb{R}^m$ is an $m$-dimensional Brownian motion.
 
 The equivalent Stratonovich SDE is
-$$
-d\mathbf{X}_t= \Big(\mathbf{A}(t, \mathbf{X}_t) - \tfrac{1}{2} \sum_{j=1}^m (\boldsymbol{\Sigma}_j \cdot \nabla)\boldsymbol{\Sigma}_j (t,\mathbf{X}_t)\Big)\, dt + \boldsymbol{\Sigma}(t, \mathbf{X}_t)\circ d\mathbf{W}_t,
-$$
+$$d\mathbf{X}_t= \Big(\mathbf{A}(t, \mathbf{X}_t) - \tfrac{1}{2} \sum_{j=1}^m (\boldsymbol{\Sigma}_j \cdot \nabla)\boldsymbol{\Sigma}_j (t,\mathbf{X}_t)\Big)\, dt + \boldsymbol{\Sigma}(t, \mathbf{X}_t)\circ d\mathbf{W}_t,$$
 
 where $\boldsymbol{\Sigma}_j$ denotes the j-th column of $\boldsymbol{\Sigma}$.
 
 In coordinates, the correction can be written more explicitly as
-$$
-\big[(\boldsymbol{\Sigma}_j \cdot \nabla)\boldsymbol{\Sigma}_j\big]_i
-= \sum_{k=1}^d \boldsymbol{\Sigma}_{k j}(\mathbf{x}) \, \partial_{x_k} \boldsymbol{\Sigma}_{i j}(\mathbf{x}),
-$$
+
+$$\big[(\boldsymbol{\Sigma}_j \cdot \nabla)\boldsymbol{\Sigma}_j\big]_i
+= \sum_{k=1}^d \boldsymbol{\Sigma}_{k j}(\mathbf{x}) \, \partial_{x_k} \boldsymbol{\Sigma}_{i j}(\mathbf{x}),$$
+
 which highlights that it is a directional derivative of the vector field $\boldsymbol{\sigma}_j$ along itself.
 
 This formulation makes the link with Itô’s lemma explicit: the drift correction aggregates the same second-order effects that appear through the Hessian term in the multidimensional Itô formula, but expressed intrinsically in terms of derivatives of the diffusion field.
@@ -233,18 +209,16 @@ This makes explicit that the Itô–Stratonovich correction is fundamentally a s
 ## Numerical Schemes
 
 The Euler–Maruyama scheme for Itô SDEs:
-$$
-X_{t+\Delta t} = X_t + a(X_t)\Delta t + b(X_t)\Delta W_t,
-$$
+
+$$X_{t+\Delta t} = X_t + a(X_t)\Delta t + b(X_t)\Delta W_t,$$
+
 is the simplest and most widely used discretization method. It is explicit and easy to implement, but only achieves strong order 1/2 convergence.
 
 For Stratonovich equations, midpoint-based schemes such as Heun’s method are more appropriate, as they better capture the underlying interpretation of the stochastic integral. A typical scheme is
-$$
-X_{n+1} = X_n + a(X_n)\Delta t + b\!\left(\frac{X_n + \tilde{X}_{n+1}}{2}\right)\Delta W_n,
-$$
-where $
-\tilde{X}_{n+1} = X_n + a(X_n)\Delta t + b(X_n)\Delta W_n
-$ is a predictor step.
+
+$$X_{n+1} = X_n + a(X_n)\Delta t + b\!\left(\frac{X_n + \tilde{X}_{n+1}}{2}\right)\Delta W_n,$$
+
+where $\tilde{X}_{n+1} = X_n + a(X_n)\Delta t + b(X_n)\Delta W_n$ is a predictor step.
 
 This scheme approximates the midpoint evaluation required by the Stratonovich integral. However, it introduces additional computational cost and implicitness through the midpoint term, and its accuracy can degrade when the diffusion coefficient $b(x)$ is highly nonlinear or when time steps are not sufficiently small.
 
