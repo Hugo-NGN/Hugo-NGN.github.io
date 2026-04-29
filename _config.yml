@@ -1,0 +1,14 @@
+title: Hugo NGUYEN
+email: your-email@example.com
+description: >- # this means to ignore newlines until "baseurl:"
+  Personal site and blog for Hugo NGUYEN.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+# Build settings
+permalink: pretty
