@@ -1,6 +1,6 @@
 # Hugo NGUYEN - Academic Website
 
-Personal academic website of myself (Hugo NGUYEN), PhD Student at École Polytechnique (CMAP) and Quantitative Researcher at Crédit Agricole SA.
+Academic website of myself (Hugo NGUYEN), PhD Student at École Polytechnique (CMAP) and Quantitative Researcher at Crédit Agricole SA.
 
 ## 📄 License
 
