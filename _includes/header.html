@@ -1,0 +1,19 @@
+<nav class="navbar">
+  <div class="container">
+    <h1 class="logo">{{ site.title }}</h1>
+    <ul class="nav-links">
+      <li>
+        <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a>
+      </li>
+      <li>
+        <a href="{{ '/publications.html' | relative_url }}" {% if page.url == '/publications.html' %}class="active"{% endif %}>Publications</a>
+      </li>
+      <li>
+        <a href="{{ '/notes/' | relative_url }}" {% if page.url == '/notes/' %}class="active"{% endif %}>Notes</a>
+      </li>
+      <li>
+        <a href="{{ '/cv.html' | relative_url }}" {% if page.url == '/cv.html' %}class="active"{% endif %}>CV</a>
+      </li>
+    </ul>
+  </div>
+</nav>
